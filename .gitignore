@@ -1,14 +1,8 @@
-# Ignore node_modules directory
-node_modules/
+# Ignore MySQL socket file
+ORS_Project4/mysql-data/mysql.sock
 
-# Ignore any .DS_Store files (macOS)
-.DS_Store
-
-# Ignore log files
-*.log
-
-# Ignore swap files
-*.swp
-
-# Ignore MySQL socket files
-mysql-data/*.sock
+# Ignore other problematic files (if any)
+ORS_Project4/.tern-project
+ORS_Project4/mysql-data/auto.cnf
+ORS_Project4/mysql-data/binlog.index
+ORS_Project4/mysql-data/ib_buffer_pool
