@@ -23,30 +23,23 @@ import com.rays.pro4.Util.ServletUtility;
  */
 @WebServlet(name = "UPIListCtl", urlPatterns = { "/ctl/UPIListCtl" })
 
-
-public class UPIListCtl extends BaseCtl{
+public class UPIListCtl extends BaseCtl {
 
 	protected void preload(HttpServletRequest request) {
 
 		UPIModel model = new UPIModel();
-		
+
 		List plist;
 		try {
 			plist = model.list(0, 0);
-			request.setAttribute("plist",plist);
-			
-			
-			
+			request.setAttribute("plist", plist);
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-	}
 
-	
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -63,17 +56,16 @@ public class UPIListCtl extends BaseCtl{
 		bean.setDate(DataUtility.getDate(request.getParameter("dob")));
 
 		bean.setAmount(DataUtility.getString(request.getParameter("amount")));
-		
-		bean.setMobile(DataUtility.getString(request.getParameter("mobile")));
+
+		bean.setMobile(DataUtility.getLong(request.getParameter("mobile")));
 
 		bean.setName(DataUtility.getString(request.getParameter("name")));
-
 
 		return bean;
 	}
 
- 	/**
-	 * Contains Display logics.
+	/**
+	 * Contains Display logics.s
 	 *
 	 * @param request  the request
 	 * @param response the response
@@ -82,7 +74,7 @@ public class UPIListCtl extends BaseCtl{
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-	
+
 		List list = null;
 		List nextList = null;
 
@@ -96,7 +88,7 @@ public class UPIListCtl extends BaseCtl{
 
 		// String[] ids = request.getParameterValues("ids");
 
-	UPIModel model = new UPIModel();
+		UPIModel model = new UPIModel();
 
 		try {
 			list = model.search(bean, pageNo, pageSize);
@@ -118,11 +110,11 @@ public class UPIListCtl extends BaseCtl{
 			// ServletUtility.setBean(bean, request);
 			ServletUtility.forward(getView(), request, response);
 		} catch (ApplicationException e) {
-			
+
 			ServletUtility.handleException(e, request, response);
 			return;
 		}
-		
+
 	}
 
 	/**
@@ -136,7 +128,7 @@ public class UPIListCtl extends BaseCtl{
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		List list;
 		List nextList = null;
 
@@ -157,7 +149,7 @@ public class UPIListCtl extends BaseCtl{
 
 		if (OP_SEARCH.equalsIgnoreCase(op)) {
 			pageNo = 1;
-			
+
 		} else if (OP_NEXT.equalsIgnoreCase(op)) {
 			pageNo++;
 		} else if (OP_PREVIOUS.equalsIgnoreCase(op) && pageNo > 1) {
@@ -177,7 +169,7 @@ public class UPIListCtl extends BaseCtl{
 					try {
 						model.delete(deletebean);
 					} catch (ApplicationException e) {
-						
+
 						ServletUtility.handleException(e, request, response);
 						return;
 					}
@@ -196,20 +188,20 @@ public class UPIListCtl extends BaseCtl{
 			request.setAttribute("nextlist", nextList.size());
 
 		} catch (ApplicationException e) {
-		
+
 			ServletUtility.handleException(e, request, response);
 			return;
 		}
 		if (list == null || list.size() == 0 && !OP_DELETE.equalsIgnoreCase(op)) {
 			ServletUtility.setErrorMessage("No record found ", request);
 		}
-		
+
 		ServletUtility.setList(list, request);
 		ServletUtility.setBean(bean, request);
 		ServletUtility.setPageNo(pageNo, request);
 		ServletUtility.setPageSize(pageSize, request);
 		ServletUtility.forward(getView(), request, response);
-	
+
 	}
 
 	/*
@@ -223,4 +215,3 @@ public class UPIListCtl extends BaseCtl{
 	}
 
 }
-

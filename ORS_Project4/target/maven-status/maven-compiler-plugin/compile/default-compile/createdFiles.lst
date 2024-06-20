@@ -4,6 +4,7 @@ com\rays\pro4\Util\EmailUtility.class
 com\rays\pro4\Util\DataValidator.class
 com\rays\pro4\Util\EmailUtility$1.class
 com\rays\pro4\Bean\WishBean.class
+com\rays\pro4\Bean\Abcbean.class
 com\rays\proj4\Test\SubjectTest.class
 com\rays\proj4\Test\TimeTableTest.class
 com\rays\pro4\controller\UPIListCtl.class

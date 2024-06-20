@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.rays.pro4.Bean.ProductBean;
 import com.rays.pro4.Bean.UPIBean;
 import com.rays.pro4.Exception.ApplicationException;
 import com.rays.pro4.Exception.DatabaseException;
@@ -14,25 +15,19 @@ import com.rays.pro4.Exception.DuplicateRecordException;
 import com.rays.pro4.Util.JDBCDataSource;
 
 public class UPIModel {
-	public int nextPK() throws DatabaseException {
+	public int nextPK() throws Exception {
 
 		String sql = "SELECT MAX(ID) FROM st_upi";
 		Connection conn = null;
 		int pk = 0;
-		try {
-			conn = JDBCDataSource.getConnection();
-			PreparedStatement pstmt = conn.prepareStatement(sql);
-			ResultSet rs = pstmt.executeQuery();
-			while (rs.next()) {
-				pk = rs.getInt(1);
-			}
-			rs.close();
-		} catch (Exception e) {
 
-			throw new DatabaseException("Exception : Exception in getting PK");
-		} finally {
-			JDBCDataSource.closeConnection(conn);
+		conn = JDBCDataSource.getConnection();
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		ResultSet rs = pstmt.executeQuery();
+		while (rs.next()) {
+			pk = rs.getInt(1);
 		}
+		rs.close();
 
 		return pk + 1;
 
@@ -54,10 +49,9 @@ public class UPIModel {
 
 			pstmt.setInt(1, pk);
 			pstmt.setString(2, bean.getName());
-			pstmt.setString(3, bean.getMobile());
+			pstmt.setLong(3, bean.getMobile());
 			pstmt.setString(4, bean.getAmount());
 			pstmt.setDate(5, new java.sql.Date(bean.getDate().getTime()));
-			
 
 			// date of birth caste by sql date
 
@@ -125,10 +119,9 @@ public class UPIModel {
 				bean = new UPIBean();
 				bean.setId(rs.getLong(1));
 				bean.setName(rs.getString(2));
-				bean.setMobile(rs.getString(3));
+				bean.setMobile(rs.getLong(3));
 				bean.setAmount(rs.getString(4));
 				bean.setDate(rs.getDate(5));
-				
 
 			}
 			rs.close();
@@ -154,7 +147,7 @@ public class UPIModel {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 
 			pstmt.setString(1, bean.getName());
-			pstmt.setString(2, bean.getMobile());
+			pstmt.setLong(2, bean.getMobile());
 			pstmt.setString(3, bean.getAmount());
 			pstmt.setDate(4, new java.sql.Date(bean.getDate().getTime()));
 			pstmt.setLong(5, bean.getId());
@@ -195,10 +188,10 @@ public class UPIModel {
 
 			if (bean.getAmount() != null && bean.getAmount().length() > 0) {
 				sql.append(" AND AMOUNT like '" + bean.getAmount() + "%'");
-			}
-			
-			if (bean.getMobile()!= null && bean.getMobile().length() > 0) {
-				sql.append(" AND MOBILE like '" + bean.getMobile() + "%'");
+			}                   
+
+			if (bean.getMobile() > 0) {
+				sql.append(" AND MOBILE  = '" + bean.getMobile());
 			}
 
 			/*
@@ -227,7 +220,7 @@ public class UPIModel {
 				bean = new UPIBean();
 				bean.setId(rs.getLong(1));
 				bean.setName(rs.getString(2));
-				bean.setMobile(rs.getString(3));
+				bean.setMobile(rs.getLong(3));
 				bean.setAmount(rs.getString(4));
 				bean.setDate(rs.getDate(5));
 				list.add(bean);
@@ -244,7 +237,7 @@ public class UPIModel {
 		return list;
 	}
 
-	public List list(int pageNo, int pageSize) throws ApplicationException {
+	public List list(int pageNo, int pageSize) throws Exception {
 
 		ArrayList list = new ArrayList();
 		StringBuffer sql = new StringBuffer("select * from st_upi");
@@ -258,6 +251,7 @@ public class UPIModel {
 		Connection conn = null;
 
 		try {
+
 			conn = JDBCDataSource.getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(sql.toString());
 			ResultSet rs = pstmt.executeQuery();
@@ -265,9 +259,10 @@ public class UPIModel {
 				UPIBean bean = new UPIBean();
 				bean.setId(rs.getLong(1));
 				bean.setName(rs.getString(2));
-				bean.setMobile(rs.getString(3));
+				bean.setMobile(rs.getLong(3));
 				bean.setAmount(rs.getString(4));
 				bean.setDate(rs.getDate(5));
+
 				list.add(bean);
 
 			}
