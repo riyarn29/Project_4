@@ -13,7 +13,7 @@
 <link rel="icon" type="image/png"
 	href="<%=ORSView.APP_CONTEXT%>/img/logo.png" sizes="16*16" />
 <title>Family List</title>
-
+<script src="<%=ORSView.APP_CONTEXT%>/js/ValidateToInput.js"></script>
 <script src="<%=ORSView.APP_CONTEXT%>/js/jquery.min.js"></script>
 <script src="<%=ORSView.APP_CONTEXT%>/js/Checkbox11.js"></script>
 
@@ -78,7 +78,7 @@
 					<label>Name:</font>
 					</label>
 					<input type="text" name="name" align="left"
-						placeholder="Enter name"
+						placeholder="Enter name" onkeypress="return ValidateInput(event)"
 						value="<%=ServletUtility.getParameter("name", request)%>">
 					&nbsp; &nbsp;
 					<%-- <label>Client:</font> 

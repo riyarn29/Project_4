@@ -11,6 +11,7 @@
 	pageEncoding="ISO-8859-1"%>
 <html>
 <head>
+<script src="<%=ORSView.APP_CONTEXT%>/js/ValidateToInput.js"></script>
 <link rel="icon" type="image/png"
 	href="<%=ORSView.APP_CONTEXT%>/img/logo.png" sizes="16*16" />
 <title>Upi List</title>
@@ -32,6 +33,22 @@
 		
 		});
 	});
+</script>
+
+<script>
+	function validateNumericInput(inputField) {
+		// Get the value entered by the user
+		var inputValue = inputField.value;
+
+		// Regular expression to check if the input is numeric
+		var numericPattern = /^\d*$/;
+
+		// Test the input value against the numeric pattern
+		if (!numericPattern.test(inputValue)) {
+			// If input is not numeric, clear the field
+			inputField.value = inputValue.replace(/[^\d]/g, ''); // Remove non-numeric characters
+		}
+	}
 </script>
 
 </head>
@@ -78,7 +95,7 @@
 				<!-- 	<td align="center"> -->
 					<label>Mobile:</font> 
 					</label> <input type="text" name="mobile" align = "left"
-						placeholder="Enter mobile"
+						placeholder="Enter mobile" oninput="validateNumericInput(this)" maxlength="10"
 						value="<%=ServletUtility.getParameter("mobile", request)%>"> &nbsp;
 					
 				
@@ -104,14 +121,16 @@
 						
 					&nbsp;	<label> Date </font> 
 					</label> <input type="text" name="dob" id="udatee"
-						placeholder="Enter Date"
+						placeholder="Enter Date" onkeypress="return ValidateInput(event)"
 						value="<%=ServletUtility.getParameter("dob", request)%>"> &nbsp;
+						
 					
 							
 						<label>Amount:</font> 
 					</label> <input type="text" name="amount"
-						placeholder="Enter amount "
+						placeholder="Enter amount " oninput="validateNumericInput(this)" 
 						value="<%=ServletUtility.getParameter("amount", request)%>"> &nbsp;
+						
 					
 					
 					

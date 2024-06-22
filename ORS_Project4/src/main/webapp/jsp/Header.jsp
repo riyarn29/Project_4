@@ -84,7 +84,7 @@
 					href="<%=ORSView.TIMETABLE_LIST_CTL%>">TimeTable List</b></a> |  <a
 						href="<%=ORSView.JOBREQUIREMENT_LIST_CTL%>">Job List</a> | <a
 						href="<%=ORSView.JOBREQUIREMENT_CTL%>">Add Job</a> |
-						 <a
+						<%--  <a
 						href="<%=ORSView.LESSON_LIST_CTL%>">Lesson List</a> | <a
 						href="<%=ORSView.LESSON_CTL%>">Add Lesson</a> |
 						 <a
@@ -102,12 +102,14 @@
 						href="<%=ORSView.SALARY_LIST_CTL%>">salary List</a> | <a
 						href="<%=ORSView.SALARY_CTL%>">Add salary</a> |<a
 						href="<%=ORSView.DOCTOR_LIST_CTL%>">Doctor List</a> | <a
-						href="<%=ORSView.DOCTOR_CTL%>">Add Doctor</a> |<a
+						href="<%=ORSView.DOCTOR_CTL%>">Add Doctor</a>  --%>|<a
 						href="<%=ORSView.UPI_LIST_CTL%>">UPI List</a> | <a
-						href="<%=ORSView.UPI_CTL%>">Add UPI</a>  |<a
+						href="<%=ORSView.UPI_CTL%>">Add UPI</a>  <%-- |<a
 						href="<%=ORSView.FAMILY_CTL%>">Add Family</a> | <a
-						href="<%=ORSView.FAMILY_LIST_CTL%>">Family List</a>| 
-								<a href="<%=ORSView.FAMILY_LIST_CTL%>"> test List</a> 
+						href="<%=ORSView.FAMILY_LIST_CTL%>">Family List</a>|  --%>
+								|<a
+						href="<%=ORSView.ABC_CTL%>">Add ABC</a> | <a
+						href="<%=ORSView.ABC_LIST_CTL%>">ABC List</a>| 
 						
 					<a target="blank" href="<%=ORSView.JAVA_DOC_VIEW%>">Java Doc</b></a> | <%
  	}

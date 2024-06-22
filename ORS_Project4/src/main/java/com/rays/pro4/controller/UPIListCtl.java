@@ -13,6 +13,7 @@ import com.rays.pro4.Bean.UPIBean;
 import com.rays.pro4.Exception.ApplicationException;
 import com.rays.pro4.Model.UPIModel;
 import com.rays.pro4.Util.DataUtility;
+import com.rays.pro4.Util.DataValidator;
 import com.rays.pro4.Util.PropertyReader;
 import com.rays.pro4.Util.ServletUtility;
 
@@ -25,6 +26,45 @@ import com.rays.pro4.Util.ServletUtility;
 
 public class UPIListCtl extends BaseCtl {
 
+	@Override
+	protected boolean validate(HttpServletRequest request) {
+		System.out.println("uctl Validate");
+
+		boolean pass = true;
+
+		if (DataValidator.isNull(request.getParameter("name"))) {
+			request.setAttribute("name", PropertyReader.getValue("error.require", "name"));
+			pass = false;
+
+		} /*
+			 * else if (!DataValidator.isName(request.getParameter("name"))) {
+			 * request.setAttribute("name", "name must contains alphabet only"); pass =
+			 * false; }
+			 */
+
+		if (DataValidator.isNull(request.getParameter("amount"))) {
+			request.setAttribute("amount", PropertyReader.getValue("error.require", "amount"));
+			pass = false;
+		} else if (!DataValidator.isInteger(request.getParameter("amount"))) {
+			request.setAttribute("amount", "amount  must contains numbers only");
+			pass = false;
+		}
+
+		if (DataValidator.isNull(request.getParameter("dob"))) {
+			request.setAttribute("dob", PropertyReader.getValue("error.require", "Date"));
+			pass = false;
+		}
+		if (DataValidator.isNull(request.getParameter("mobile"))) {
+			request.setAttribute("mobile", PropertyReader.getValue("error.require", "mobile"));
+			pass = false;
+		} else if (!DataValidator.isPhoneNo(request.getParameter("mobile"))) {
+			request.setAttribute("mobile", "mobile must contains numbers only");
+			pass = false;
+		}
+
+		return pass;
+
+	}
 	protected void preload(HttpServletRequest request) {
 
 		UPIModel model = new UPIModel();
